@@ -1,3 +1,5 @@
+import 'package:eos_advance_login/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:eos_advance_login/theme/light_theme.dart';
 import 'package:eos_advance_login/theme/foundation/app_theme.dart';
@@ -10,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppTheme theme = LightTheme();
+    final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       backgroundColor: theme.color.surface,
@@ -63,6 +66,17 @@ class HomeScreen extends StatelessWidget {
              * - FirebaseAuth.instance.currentUser?.email을 사용하여 사용자 이메일 가져오기
              * - 사용자 정보가 없는 경우 대체 텍스트 표시
              */
+            // 사용자 이메일을 화면에 표시하는 코드 추가
+
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                '로그인한 이메일: ${user?.email ?? '로그인 필요'}',
+                style: theme.typo.body1.copyWith(
+                  color: theme.color.subtext,
+                ),
+              ),
+            ),
 
             // 추가 정보 메시지
             Padding(
@@ -107,7 +121,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   // 로그아웃 처리 메서드
-  void _handleLogout(BuildContext context) {
+  void _handleLogout(BuildContext context) async {
     // TODO: [과제 3-2] Firebase Auth를 사용한 로그아웃 구현
     /*
      * 로그아웃 기능 구현 과제
@@ -128,5 +142,20 @@ class HomeScreen extends StatelessWidget {
      *    - Navigator.of(context).pushAndRemoveUntil()을 사용하여
      *      화면 스택을 비우고 로그인 화면으로 이동
      */
+    try {
+      // Firebase 로그아웃 처리
+      await FirebaseAuth.instance.signOut();
+
+      // 로그아웃 후, 로그인 화면으로 이동
+      // Navigator.of(context).pushAndRemoveUntil(
+      //   MaterialPageRoute(builder: (context) => const LoginScreen()), // 로그인 화면으로 이동
+      //   (Route<dynamic> route) => false, // 모든 기존 화면 제거
+      // );
+    } catch (e) {
+      // 오류 처리
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('로그아웃 중 오류가 발생했습니다: $e')),
+      );
+    }
   }
 }
