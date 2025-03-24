@@ -147,10 +147,10 @@ class HomeScreen extends StatelessWidget {
       await FirebaseAuth.instance.signOut();
 
       // 로그아웃 후, 로그인 화면으로 이동
-      // Navigator.of(context).pushAndRemoveUntil(
-      //   MaterialPageRoute(builder: (context) => const LoginScreen()), // 로그인 화면으로 이동
-      //   (Route<dynamic> route) => false, // 모든 기존 화면 제거
-      // );
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => const LoginScreen()), // 로그인 화면으로 이동
+        (Route<dynamic> route) => false, // 모든 기존 화면 제거
+      );
     } catch (e) {
       // 오류 처리
       ScaffoldMessenger.of(context).showSnackBar(
