@@ -1,12 +1,11 @@
 import 'package:eos_advance_login/screens/home_screen.dart';
 import 'package:eos_advance_login/service/auth_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:eos_advance_login/screens/home_screen.dart';
 import 'package:eos_advance_login/theme/res/palette.dart';
 import 'package:eos_advance_login/theme/light_theme.dart';
 import 'package:eos_advance_login/theme/foundation/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 /// 로그인 화면 - 이메일 로그인과 소셜 로그인 기능을 제공합니다.
@@ -231,6 +230,57 @@ class _LoginScreenState extends State<LoginScreen> {
       children: [
         TextButton(
           onPressed: () {
+            final TextEditingController emailController = TextEditingController();
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text('비밀번호 재설정'),
+        content: TextField(
+          controller: emailController,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            labelText: '이메일 주소',
+            hintText: 'example@email.com',
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('취소'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final email = emailController.text.trim();
+
+              // 이메일 형식 유효성 검사 (간단히 @ 포함 여부로)
+              if (!email.contains('@')) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('올바른 이메일을 입력하세요.')),
+                );
+                return;
+              }
+
+              try {
+                await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('비밀번호 재설정 이메일이 전송되었습니다.')),
+                );
+              } catch (e) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('오류 발생: ${e.toString()}')),
+                );
+              }
+            },
+            child: Text('확인'),
+          ),
+        ],
+      );
+    },
+  );
             // TODO: [과제 1-1] 비밀번호 재설정 기능 구현
             /*
              * 비밀번호 재설정 과제
@@ -247,7 +297,7 @@ class _LoginScreenState extends State<LoginScreen> {
              *    - 요청 성공/실패에 따른 피드백 제공
              *    - 오류 처리 (사용자가 존재하지 않을 경우 등)
              */
-          
+          },
           child: Text(
             '비밀번호 재설정',
             style: theme.typo.body1.copyWith(
@@ -477,11 +527,51 @@ class _LoginScreenState extends State<LoginScreen> {
      *    - 로그인 성공 시 홈 화면으로 이동
      *    - 오류 발생 시 적절한 피드백 제공
      */
+    final auth = AuthService();
+    auth.signInWithKakao(
+      onSuccess: () {
+        // 로그인 성공 시 홈 화면으로 이동
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('카카오 로그인 성공!')),
+        );
+      },
+      onError: (err) {
+        // 로그인 실패 시 오류 메시지 표시
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('카카오 로그인 실패: $err')),
+        );
+        print('$err');
+      },
+    );
     _showLoginMessage(context, '카카오');
   }
 
   /// 구글 로그인 처리 메서드
   void _handleGoogleLogin(BuildContext context) {
+    final auth = AuthService();
+    auth.signInWithGoogle(
+      onSuccess: () {
+        // 로그인 성공 시 홈 화면으로 이동
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('구글 로그인 성공!')),
+        );
+      },
+      onError: (err) {
+        // 로그인 실패 시 오류 메시지 표시
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('구글 로그인 실패: $err')),
+        );
+        print('$err');
+      },
+    );
     // TODO: [과제 1-3] 구글 로그인 구현
     /*
      * 구글 로그인 및 Firebase 연동 과제

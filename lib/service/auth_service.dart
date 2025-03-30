@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart' as KakaoUser;
 
 class AuthService extends ChangeNotifier {
   User? currentUser() {
@@ -126,6 +127,36 @@ class AuthService extends ChangeNotifier {
     required Function(String err) onError,
   }) async {
     // 여기에 구글 로그인 로직을 구현하세요
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? account = await googleSignIn.signIn();
+      
+      if (account == null) {
+        onError("사용자가 로그인을 취소했습니다.");
+        return;
+      }
+
+      final GoogleSignInAuthentication authentication =
+        await account.authentication;
+      final OAuthCredential googleCredential = GoogleAuthProvider.credential(
+        idToken: authentication.idToken,
+        accessToken: authentication.accessToken,
+      );
+      final UserCredential credential = 
+        await FirebaseAuth.instance.signInWithCredential(googleCredential);
+
+      final user = credential.user;
+
+      if (user != null) {
+        onSuccess();
+      } else {
+        onError("사용자 정보를 가져오지 못했습니다.");
+        return;
+      }
+    } catch (e) {
+      onError("구글 로그인 중 오류가 발생했습니다: ${e.toString()}");
+      return;
+    }
   }
 
   // TODO: [과제 2-2] 카카오 로그인 및 Firebase 연동 메서드 구현
@@ -155,6 +186,26 @@ class AuthService extends ChangeNotifier {
     required Function() onSuccess,
     required Function(String err) onError,
   }) async {
-    // 여기에 카카오 로그인 로직을 구현하세요
+    try {
+      final token = await KakaoUser.UserApi.instance.loginWithKakaoAccount();
+      print("뭔가 이상함");
+
+      if (token.accessToken == null) {
+        onError("카카오 로그인 중 오류가 발생했습니다.");
+        return;
+      }
+
+      final credential = OAuthProvider("oidc.kakao").credential(idToken: null, accessToken: token.accessToken);
+      
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      if (userCredential.user != null) {
+        onSuccess();
+      } else {
+        onError('Firebase 사용자 없음');
+      }
+    } catch (e) {
+      onError("카카오 OIDC 로그인 실패: $e");
+    }
   }
 }

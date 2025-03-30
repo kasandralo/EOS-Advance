@@ -22,7 +22,13 @@
               />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <!--"kakao3db28dbc12c047e27ebaf2a5fff15498://oauth"-->
+                <!--카카오 로그인 Redirect URI-->
+                <data android:scheme="kakao3db28dbc12c047e27ebaf2a5fff15498" android:host="oauth"/>
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
