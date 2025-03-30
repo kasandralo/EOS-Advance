@@ -1,8 +1,10 @@
 import 'package:eos_advance_login/screens/home_screen.dart';
 import 'package:eos_advance_login/service/auth_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:eos_advance_login/theme/res/palette.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:eos_advance_login/screens/home_screen.dart';
+import 'package:eos_advance_login/theme/res/palette.dart';
 import 'package:eos_advance_login/theme/light_theme.dart';
 import 'package:eos_advance_login/theme/foundation/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -245,7 +247,7 @@ class _LoginScreenState extends State<LoginScreen> {
              *    - 요청 성공/실패에 따른 피드백 제공
              *    - 오류 처리 (사용자가 존재하지 않을 경우 등)
              */
-          },
+          
           child: Text(
             '비밀번호 재설정',
             style: theme.typo.body1.copyWith(
@@ -403,7 +405,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       return;
     }
-
+    
     // 이메일 형식 검사
     final bool isEmailValid = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
         .hasMatch(_emailController.text);

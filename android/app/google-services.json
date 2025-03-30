@@ -1,26 +1,36 @@
 {
   "project_info": {
-    "project_number": "145551522874",
-    "project_id": "eos-advance",
-    "storage_bucket": "eos-advance.firebasestorage.app"
+    "project_number": "489247407651",
+    "project_id": "eos-advanced-login",
+    "storage_bucket": "eos-advanced-login.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:145551522874:android:11752679284c73c548c903",
+        "mobilesdk_app_id": "1:489247407651:android:1845b94f6e4c696d48fb96",
         "android_client_info": {
           "package_name": "com.example.eos_advance_login"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "489247407651-o6f65dmldv3l30r4dgjcac59ar1ujl44.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyA7BgB5ix2bqQeZz4M5ajvB8ej0YgEmuHM"
+          "current_key": "AIzaSyDjzNAQwBACHnY9iqOxXO54t8KY8SVoeKw"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "489247407651-o6f65dmldv3l30r4dgjcac59ar1ujl44.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

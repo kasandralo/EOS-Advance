@@ -23,11 +23,20 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
-        return windows;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for windows - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -41,48 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBpfRF6vvaWbZt5NUKgJJ9wa8z5xGuZl-s',
-    appId: '1:145551522874:web:8c4d4c544e72ed6e48c903',
-    messagingSenderId: '145551522874',
-    projectId: 'eos-advance',
-    authDomain: 'eos-advance.firebaseapp.com',
-    storageBucket: 'eos-advance.firebasestorage.app',
-    measurementId: 'G-YYTYYTRRZN',
+    apiKey: 'AIzaSyA2WFKG4u4YYkZ9B_DErsVCSWvHHgqa3Xo',
+    appId: '1:489247407651:web:b851cb6c15c323ef48fb96',
+    messagingSenderId: '489247407651',
+    projectId: 'eos-advanced-login',
+    authDomain: 'eos-advanced-login.firebaseapp.com',
+    storageBucket: 'eos-advanced-login.firebasestorage.app',
+    measurementId: 'G-DLD0WK4VK6',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA7BgB5ix2bqQeZz4M5ajvB8ej0YgEmuHM',
-    appId: '1:145551522874:android:11752679284c73c548c903',
-    messagingSenderId: '145551522874',
-    projectId: 'eos-advance',
-    storageBucket: 'eos-advance.firebasestorage.app',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDGVW8aSjlNUMF6mFQfLdPwNMjox6ZN6F4',
-    appId: '1:145551522874:ios:6a7e93430ae75a4b48c903',
-    messagingSenderId: '145551522874',
-    projectId: 'eos-advance',
-    storageBucket: 'eos-advance.firebasestorage.app',
-    iosBundleId: 'com.example.eosAdvanceLogin',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDGVW8aSjlNUMF6mFQfLdPwNMjox6ZN6F4',
-    appId: '1:145551522874:ios:6a7e93430ae75a4b48c903',
-    messagingSenderId: '145551522874',
-    projectId: 'eos-advance',
-    storageBucket: 'eos-advance.firebasestorage.app',
-    iosBundleId: 'com.example.eosAdvanceLogin',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBpfRF6vvaWbZt5NUKgJJ9wa8z5xGuZl-s',
-    appId: '1:145551522874:web:83ce5f985015b03648c903',
-    messagingSenderId: '145551522874',
-    projectId: 'eos-advance',
-    authDomain: 'eos-advance.firebaseapp.com',
-    storageBucket: 'eos-advance.firebasestorage.app',
-    measurementId: 'G-E6L4VJ2WP7',
+    apiKey: 'AIzaSyDjzNAQwBACHnY9iqOxXO54t8KY8SVoeKw',
+    appId: '1:489247407651:android:1845b94f6e4c696d48fb96',
+    messagingSenderId: '489247407651',
+    projectId: 'eos-advanced-login',
+    storageBucket: 'eos-advanced-login.firebasestorage.app',
   );
 }

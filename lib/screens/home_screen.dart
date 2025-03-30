@@ -12,6 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppTheme theme = LightTheme();
+    final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
       backgroundColor: theme.color.surface,

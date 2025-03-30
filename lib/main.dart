@@ -1,8 +1,9 @@
 import 'package:eos_advance_login/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:eos_advance_login/screens/home_screen.dart';
 import 'package:eos_advance_login/service/auth_service.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:eos_advance_login/screens/login_screen.dart';
 import 'package:eos_advance_login/theme/light_theme.dart';
 import 'package:eos_advance_login/theme/foundation/app_theme.dart';
