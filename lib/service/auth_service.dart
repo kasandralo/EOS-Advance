@@ -188,15 +188,17 @@ class AuthService extends ChangeNotifier {
   }) async {
     try {
       KakaoUser.OAuthToken token = await KakaoUser.UserApi.instance.loginWithKakaoAccount();
-      print("뭔가 이상함");
+      // print("뭔가 이상함");
 
       if (token.accessToken == null) {
         onError("카카오 로그인 중 오류가 발생했습니다.");
         return;
       }
+      // print("idtoken: ${token.idToken}");
 
-      final credential = OAuthProvider("oidc.kakao").credential(idToken: null, accessToken: token.accessToken);
-      
+      final credential = OAuthProvider("oidc.kakao").credential(idToken: token.idToken, accessToken: token.accessToken);
+      // print("여기까진 ㅇㅋ?");
+      // print("credential: $credential");
       final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
 
       if (userCredential.user != null) {
