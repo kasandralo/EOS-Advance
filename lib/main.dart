@@ -19,7 +19,12 @@ Future<void> main() async {
    * - 카카오 개발자 콘솔에서 발급받은 네이티브 앱 키를 사용하여 초기화
    * - KakaoSdk.init(nativeAppKey: '네이티브_앱_키') 호출
    */
-  KakaoUser.KakaoSdk.init(nativeAppKey: '3db28dbc12c047e27ebaf2a5fff15498', javaScriptAppKey: '47cdf0902e067b773c09ff24ddeb37f9',);
+  try {
+    KakaoUser.KakaoSdk.init(nativeAppKey: '3db28dbc12c047e27ebaf2a5fff15498', javaScriptAppKey: '47cdf0902e067b773c09ff24ddeb37f9',);
+    print('Kakao SDK 초기화 성공');
+  } catch (e) {
+    print('Kakao SDK 초기화 오류: $e');
+  }
 
   // Firebase 초기화 수정
   try {

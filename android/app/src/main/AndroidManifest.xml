@@ -22,12 +22,28 @@
               />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-                <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <!--"kakao3db28dbc12c047e27ebaf2a5fff15498://oauth"-->
-                <!--카카오 로그인 Redirect URI-->
+            </intent-filter>
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="https"
+                    android:host="eos-advanced-login.firebaseapp.com"
+                    android:pathPrefix="/__/auth/handler" />
+            </intent-filter>
+        </activity>
+        <activity 
+        android:name="com.kakao.sdk.flutter.AuthCodeCustomTabsActivity"
+        android:exported="true">
+            <intent-filter android:label="flutter_web_auth">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!-- "kakao${YOUR_NATIVE_APP_KEY}://oauth" 형식의 앱 실행 스킴 설정 -->
+                <!-- 카카오 로그인 Redirect URI -->
                 <data android:scheme="kakao3db28dbc12c047e27ebaf2a5fff15498" android:host="oauth"/>
             </intent-filter>
         </activity>

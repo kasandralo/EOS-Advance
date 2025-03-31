@@ -187,7 +187,7 @@ class AuthService extends ChangeNotifier {
     required Function(String err) onError,
   }) async {
     try {
-      final token = await KakaoUser.UserApi.instance.loginWithKakaoAccount();
+      KakaoUser.OAuthToken token = await KakaoUser.UserApi.instance.loginWithKakaoAccount();
       print("뭔가 이상함");
 
       if (token.accessToken == null) {
